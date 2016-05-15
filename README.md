@@ -8,4 +8,4 @@ Install libzmq4-dev via source or package manager
 
 ## Running
 
-  go run stream.go
+  go run server.go
