@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/googollee/go-socket.io"
-	zmq "github.com/pebbe/zmq4"
+	zmq "github.com/pebbe/zmq3"
 )
 
 const zmqPort = "5555"
@@ -15,7 +15,7 @@ const ioPort = "3000"
 
 type ZmqPacket struct {
 	Room string `json:"room"`
-	Msg  string `json:"msg"`
+	Msg  map[string]interface{} `json:"msg"`
 }
 
 func main() {
@@ -59,7 +59,7 @@ func main() {
 		for _, val := range msg {
 			var packet ZmqPacket
 			err := json.Unmarshal([]byte(val), &packet)
-			if err != nil || packet.Msg == "" || packet.Room == "" {
+			if err != nil || packet.Msg == nil || packet.Room == "" {
 				log.Println("Invalid Packet", packet)
 				continue
 			}
